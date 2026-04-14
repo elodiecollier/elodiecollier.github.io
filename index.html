@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elodie Collier — iOS Software Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #110910;
+      --surface: #1c1119;
+      --border: #2e1d2b;
+      --text: #f5eef2;
+      --muted: #a8899f;
+      --pink: #f9a8d4;
+      --yellow: #fde68a;
+      --gradient: linear-gradient(135deg, #f472b6, #fbbf24);
+      --gradient-soft: linear-gradient(135deg, #f9a8d4, #fde68a);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, #2d0a2280 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 110%, #2a1a0060 0%, transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Gradient text utility ── */
+    .grad {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ════════════════════════════
+       HERO
+    ════════════════════════════ */
+    .hero {
+      padding: 100px 0 80px;
+    }
+
+    .hero-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .hero-links a:hover { opacity: 0.8; }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #0d0d0f;
+      font-weight: 600;
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+
+    /* ════════════════════════════
+       SECTION HEADERS
+    ════════════════════════════ */
+    .section {
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    /* ════════════════════════════
+       SKILLS
+    ════════════════════════════ */
+    .skill-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .skill-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .skill-group-name {
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 80px;
+      padding-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 14px;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .pill-accent {
+      background: transparent;
+      border-color: transparent;
+      background-image: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      border: 1px solid #f472b640;
+    }
+
+    /* ════════════════════════════
+       EXPERIENCE
+    ════════════════════════════ */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .exp-company {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .exp-date {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .exp-role {
+      font-size: 14px;
+      color: var(--pink);
+      margin-bottom: 14px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exp-bullets li {
+      font-size: 14px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    .inline-link {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: underline;
+      text-decoration-color: #f472b660;
+      text-underline-offset: 2px;
+    }
+    .inline-link:hover { text-decoration-color: #f472b6; }
+
+    /* ════════════════════════════
+       ONCHORD PROJECT
+    ════════════════════════════ */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient);
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--gradient);
+      color: #0d0d0f;
+      margin-bottom: 16px;
+    }
+
+    .project-card h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .project-card .desc {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      line-height: 1.65;
+    }
+
+    .project-note {
+      font-size: 13px;
+      color: var(--muted);
+      opacity: 0.7;
+      margin-bottom: 24px;
+    }
+
+    .project-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .project-features li {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .project-features li::before {
+      content: '✦';
+      font-size: 10px;
+      color: var(--pink);
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stack-pill {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid #f472b640;
+      color: var(--pink);
+      background: #f472b60d;
+    }
+
+    /* ════════════════════════════
+       ONCHORD WALKTHROUGH
+    ════════════════════════════ */
+    .demo-video {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 28px;
+      display: block;
+      margin: 28px auto 0;
+      box-shadow: 0 24px 60px #00000060, 0 0 0 1px var(--border);
+    }
+
+    .screenshots-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 28px 4px 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+
+    .screenshot-item {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 160px;
+    }
+
+    .screenshot-item img {
+      width: 160px;
+      border-radius: 22px;
+      box-shadow: 0 16px 40px #00000060, 0 0 0 1px var(--border);
+      display: block;
+    }
+
+    .screenshot-caption {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    .footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+    @media (max-width: 560px) {
+      .hero { padding: 72px 0 56px; }
+      .section { padding: 48px 0; }
+      .exp-card { padding: 20px; }
+      .project-card { padding: 24px; }
+      .skill-group { flex-direction: column; gap: 8px; }
+      .skill-group-name { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ── HERO ── -->
+  <section class="hero fade-in">
+    <h1>Elodie Collier<span class="grad">.</span></h1>
+    <p>Software engineer with a focus on iOS — shipping cross-platform products end-to-end, from SwiftUI to backend APIs. Based in New York.</p>
+    <div class="hero-links">
+      <a class="btn-primary" href="mailto:egcollier19@gmail.com">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Get in touch
+      </a>
+      <a class="btn-ghost" href="https://linkedin.com/in/elodie-collier" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="btn-ghost" href="https://github.com/elodiecollier" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section class="section fade-in">
+    <p class="section-label">Skills</p>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <span class="skill-group-name">iOS</span>
+        <div class="pills">
+          <span class="pill pill-accent">Swift</span>
+          <span class="pill pill-accent">SwiftUI</span>
+          <span class="pill">Xcode</span>
+          <span class="pill">Firebase</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-group-name">Android</span>
+        <div class="pills">
+          <span class="pill">Kotlin</span>
+          <span class="pill">Jetpack Compose</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-group-name">Backend</span>
+        <div class="pills">
+          <span class="pill">Spring Boot</span>
+          <span class="pill">Java</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-group-name">Other</span>
+        <div class="pills">
+          <span class="pill">Git / GitHub</span>
+          <span class="pill">Angular</span>
+          <span class="pill">HTML / CSS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section class="section fade-in">
+    <p class="section-label">Experience</p>
+    <div class="exp-list">
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <span class="exp-company">Transcendent Endeavors</span>
+          <span class="exp-date">Fall 2023 – Present</span>
+        </div>
+        <p class="exp-role">Software Engineer · New York, NY</p>
+        <ul class="exp-bullets">
+          <li>Own end-to-end development of <a href="https://apps.apple.com/us/app/blossom-bilingual/id6472343069" target="_blank" rel="noopener" class="inline-link">Blossom</a>, a multilingual learning platform across iOS, Android, and web.</li>
+          <li>Lead system design, sprint planning, and cross-platform delivery as primary engineer.</li>
+          <li>Build the iOS app in Swift/SwiftUI alongside Android development, focusing on polished UI/UX and gamified learning experiences.</li>
+          <li>Conduct demos for stakeholders and gather user feedback to drive product direction.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <span class="exp-company">KPMG US</span>
+          <span class="exp-date">Summer 2022</span>
+        </div>
+        <p class="exp-role">Evidence & Discovery Management Intern · New York, NY</p>
+        <ul class="exp-bullets">
+          <li>Applied SQL and data processing platforms to filter and manage client electronic evidence.</li>
+          <li>Developed proficiency in forensic tools including Relativity and Relativity One.</li>
+          <li>Assisted with onsite data collection, documentation, and content investigations.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <span class="exp-company">University of Georgia</span>
+          <span class="exp-date">Fall 2021 – Spring 2022</span>
+        </div>
+        <p class="exp-role">Undergraduate Research Assistant · Athens, GA</p>
+        <ul class="exp-bullets">
+          <li>Researched and designed an automated adaptive tutor for a discrete mathematics course.</li>
+          <li>Committed 10 hrs/week to coding and collaborating on teacher-to-student dialogue systems.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── ONCHORD ── -->
+  <section class="section fade-in">
+    <p class="section-label">Featured Project</p>
+    <div class="project-card">
+      <span class="project-tag">Personal · iOS</span>
+      <h3 class="grad">Onchord</h3>
+      <p class="desc">A social iOS app for music — log, rate, and review songs and albums, follow friends, and see what the people around you are listening to. Built solo, end-to-end, from SwiftUI to cloud backend.</p>
+      <p class="project-note">Not on the App Store — Spotify's API restricts production access for individual developers, so this lives happily on my 5 closest friends' phones.</p>
+      <ul class="project-features">
+        <li>Fully custom SwiftUI UI/UX built from scratch — no UIKit, no third-party UI libraries, every screen designed and implemented solo</li>
+        <li>Rate recently played tracks from a swipeable carousel; friend activity feed surfaces ratings from people you follow in real time</li>
+        <li>Full music search across tracks, albums, and artists with detail views, album averages, and personal rating history</li>
+        <li>User profiles with rated songs, computed album scores, and a social graph of friend relationships</li>
+        <li>Spotify OAuth with PKCE flow and token refresh handled via TypeScript Firebase Cloud Functions</li>
+      </ul>
+      <div class="stack-pills">
+        <span class="stack-pill">SwiftUI</span>
+        <span class="stack-pill">Firebase Firestore</span>
+        <span class="stack-pill">Spotify OAuth</span>
+        <span class="stack-pill">TypeScript Cloud Functions</span>
+        <span class="stack-pill">Firebase Auth</span>
+      </div>
+
+      <video
+        class="demo-video"
+        src="assets/videoDemo.mp4"
+        autoplay muted loop playsinline
+        poster="assets/screenshots/rateRecentListens.png"
+      ></video>
+
+      <div class="screenshots-scroll">
+        <div class="screenshot-item">
+          <img src="assets/screenshots/rateRecentListens.png" alt="Rate Recent Listens" />
+          <span class="screenshot-caption">Rate Recent Listens</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/screenshots/rateSong.png" alt="Rate a Song" />
+          <span class="screenshot-caption">Rate a Song</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/screenshots/friendActivity.png" alt="Friend Activity" />
+          <span class="screenshot-caption">Friend Activity</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/screenshots/searchResults.png" alt="Music Search" />
+          <span class="screenshot-caption">Music Search</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/screenshots/viewAlbumRating.png" alt="Album Ratings" />
+          <span class="screenshot-caption">Album Ratings</span>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/screenshots/myProfile.png" alt="My Profile" />
+          <span class="screenshot-caption">My Profile</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section class="section fade-in">
+    <p class="section-label">Education</p>
+    <div class="exp-card">
+      <div class="exp-header">
+        <span class="exp-company">University of Georgia</span>
+        <span class="exp-date">May 2023</span>
+      </div>
+      <p class="exp-role">B.S., Computer Science · GPA 3.76 / 4.00</p>
+      <ul class="exp-bullets">
+        <li>Applied Data Science certification</li>
+        <li>UGAHacks Sponsorship Organizer — hackathon hosting 500+ attendees</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer fade-in">
+    <div class="footer-links">
+      <a href="mailto:egcollier19@gmail.com">egcollier19@gmail.com</a>
+      <a href="https://linkedin.com/in/elodie-collier" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/elodiecollier" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <span class="footer-copy">Elodie Collier · 2026</span>
+  </footer>
+
+</div>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
