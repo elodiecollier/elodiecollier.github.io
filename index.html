@@ -403,6 +403,23 @@
       text-align: center;
     }
 
+    .screenshot-item-landscape {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 300px;
+    }
+
+    .screenshot-item-landscape img {
+      width: 300px;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px #db277720, 0 0 0 1px var(--border);
+      display: block;
+    }
+
     /* ════════════════════════════
        FOOTER
     ════════════════════════════ */
@@ -455,7 +472,7 @@
   <!-- ── HERO ── -->
   <section class="hero fade-in">
     <h1>Elodie Collier<span class="grad">.</span></h1>
-    <p>Software engineer with a focus on iOS — shipping cross-platform products end-to-end, from SwiftUI to backend APIs. Based in New York City.</p>
+    <p>Software engineer building full-stack, cross-platform products across mobile, web, and backend systems. Based in New York City.</p>
     <div class="hero-links">
       <a class="btn-primary" href="mailto:egcollier19@gmail.com">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -476,20 +493,63 @@
     </div>
   </section>
 
-  <!-- ── ONCHORD ── -->
+  <!-- ── PROJECTS ── -->
   <section class="section fade-in">
-    <p class="section-label">Featured Project</p>
+    <p class="section-label">Projects</p>
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+
     <div class="project-card">
-      <span class="project-tag">Personal · iOS</span>
-      <h3 class="grad">Onchord</h3>
-      <p class="desc">A social iOS app for music — log, rate, and review songs and albums, follow friends, and see what the people around you are listening to. Built solo, end-to-end, from SwiftUI to cloud backend.</p>
-      <p class="project-note">Not on the App Store — Spotify's API restricts production access for individual developers, so this lives happily on my 5 closest friends' phones.</p>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <span class="project-tag">Transcendent Endeavors</span>
+        <a href="https://apps.apple.com/us/app/blossom-bilingual/id6472343069" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border); color: var(--text); text-decoration: none; background: var(--surface); transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+      </div>
+      <h3 class="grad">Blossom Bilingual</h3>
       <ul class="project-features">
-        <li>Fully custom SwiftUI UI/UX built from scratch — no UIKit, no third-party UI libraries, every screen designed and implemented solo</li>
-        <li>Rate recently played tracks from a swipeable carousel; friend activity feed surfaces ratings from people you follow in real time</li>
-        <li>Full music search across tracks, albums, and artists with detail views, album averages, and personal rating history</li>
-        <li>User profiles with rated songs, computed album scores, and a social graph of friend relationships</li>
-        <li>Spotify OAuth with PKCE flow and token refresh handled via TypeScript Firebase Cloud Functions</li>
+        <li>Built a learning platform for language retention across iOS, Android, web, and backend services.</li>
+        <li>Developed features and prototypes used to support grant funding for continued development.</li>
+        <li>Worked with learning specialists to translate educational research into interactive learning experiences.</li>
+      </ul>
+
+      <a href="https://youtu.be/tblJcXCZfr0?si=r-mOjYSOoaSuZ3NV" target="_blank" rel="noopener" style="display: block; margin-top: 24px; position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16/9; text-decoration: none;">
+        <img src="https://img.youtube.com/vi/tblJcXCZfr0/maxresdefault.jpg" alt="Blossom Bilingual Demo" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #00000030;">
+          <div style="width: 64px; height: 64px; background: #ff0000; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+        </div>
+      </a>
+
+      <div class="screenshots-scroll">
+        <div class="screenshot-item-landscape">
+          <img src="assets/screenshots/blossom1.png" alt="Blossom Screenshot 1" />
+        </div>
+        <div class="screenshot-item-landscape">
+          <img src="assets/screenshots/blossom2.png" alt="Blossom Screenshot 2" />
+        </div>
+        <div class="screenshot-item-landscape">
+          <img src="assets/screenshots/blossom7.png" alt="Blossom Screenshot 7" />
+        </div>
+        <div class="screenshot-item-landscape">
+          <img src="assets/screenshots/blossom4.png" alt="Blossom Screenshot 4" />
+        </div>
+        <div class="screenshot-item-landscape">
+          <img src="assets/screenshots/blossom5.png" alt="Blossom Screenshot 5" />
+        </div>
+        <div class="screenshot-item-landscape">
+          <img src="assets/screenshots/blossom6.png" alt="Blossom Screenshot 6" />
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Personal</span>
+      <h3 class="grad">Onchord</h3>
+      <ul class="project-features">
+        <li>Built an end-to-end iOS social music app for discovering music through real-time friend activity feeds and ranking systems.</li>
+        <li>Designed and implemented core systems including social feed architecture, search, and Spotify OAuth with secure backend authentication.</li>
       </ul>
       <div class="stack-pills">
         <span class="stack-pill">SwiftUI</span>
@@ -533,6 +593,8 @@
         </div>
       </div>
     </div>
+
+    </div>
   </section>
 
   <!-- ── EXPERIENCE ── -->
@@ -547,10 +609,11 @@
         </div>
         <p class="exp-role">Software Engineer · New York, NY</p>
         <ul class="exp-bullets">
-          <li>Own end-to-end development of <a href="https://apps.apple.com/us/app/blossom-bilingual/id6472343069" target="_blank" rel="noopener" class="inline-link">Blossom</a>, a multilingual learning platform across iOS, Android, and web.</li>
-          <li>Lead system design, sprint planning, and cross-platform delivery as primary engineer.</li>
-          <li>Build the iOS app in Swift/SwiftUI alongside Android development, focusing on polished UI/UX and gamified learning experiences.</li>
-          <li>Conduct demos for stakeholders and gather user feedback to drive product direction.</li>
+          <li>Contribute to and lead development of <a href="https://apps.apple.com/us/app/blossom-bilingual/id6472343069" target="_blank" rel="noopener" class="inline-link">Blossom</a>, a language-learning platform spanning iOS, Android, web, and backend services.</li>
+          <li>Build features and demos that help secure $2M+ in grant funding.</li>
+          <li>Spearhead UI/UX design for the product by creating wireframes, user flows, and interaction patterns.</li>
+          <li>Collaborate with R&D and learning specialists to translate educational research into product features.</li>
+          <li>Optimize a custom text-to-speech system for Anishinaabemowin used by Ojibwe communities, improving synthesis speed by 29× and eliminating static artifacts.</li>
         </ul>
       </div>
 
@@ -575,7 +638,7 @@
         <p class="exp-role">Undergraduate Research Assistant · Athens, GA</p>
         <ul class="exp-bullets">
           <li>Researched and designed an automated adaptive tutor for a discrete mathematics course.</li>
-          <li>Committed 10 hrs/week to coding and collaborating on teacher-to-student dialogue systems.</li>
+          <li>Collaborated on teacher-to-student dialogue systems.</li>
         </ul>
       </div>
 
@@ -634,7 +697,7 @@
       <p class="exp-role">B.S., Computer Science · GPA 3.76 / 4.00</p>
       <ul class="exp-bullets">
         <li>Applied Data Science certification</li>
-        <li>UGAHacks Sponsorship Organizer — hackathon hosting 500+ attendees</li>
+        <li>UGAHacks Sponsorship Organizer — hackathon hosting 500+ attendees annually</li>
       </ul>
     </div>
   </section>
