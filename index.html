@@ -453,6 +453,62 @@
     }
 
     /* ════════════════════════════
+       NAV
+    ════════════════════════════ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 245, 240, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .nav-pill {
+      position: absolute;
+      height: 28px;
+      background: var(--border);
+      border-radius: 100px;
+      transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 100px;
+      transition: color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .nav a.active {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ════════════════════════════
        RESPONSIVE
     ════════════════════════════ */
     @media (max-width: 560px) {
@@ -466,6 +522,16 @@
   </style>
 </head>
 <body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-pill" id="nav-pill"></div>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+  </div>
+</nav>
 
 <div class="container">
 
@@ -494,7 +560,7 @@
   </section>
 
   <!-- ── PROJECTS ── -->
-  <section class="section fade-in">
+  <section id="projects" class="section fade-in">
     <p class="section-label">Projects</p>
     <div style="display: flex; flex-direction: column; gap: 24px;">
 
@@ -604,7 +670,7 @@
   </section>
 
   <!-- ── EXPERIENCE ── -->
-  <section class="section fade-in">
+  <section id="experience" class="section fade-in">
     <p class="section-label">Experience</p>
     <div class="exp-list">
 
@@ -652,7 +718,7 @@
   </section>
 
   <!-- ── SKILLS ── -->
-  <section class="section fade-in">
+  <section id="skills" class="section fade-in">
     <p class="section-label">Skills</p>
     <div class="skill-groups">
       <div class="skill-group">
@@ -693,7 +759,7 @@
   </section>
 
   <!-- ── EDUCATION ── -->
-  <section class="section fade-in">
+  <section id="education" class="section fade-in">
     <p class="section-label">Education</p>
     <div class="exp-card">
       <div class="exp-header">
@@ -721,11 +787,56 @@
 </div>
 
 <script>
-  const observer = new IntersectionObserver(
+  // Fade-in animation
+  const fadeObserver = new IntersectionObserver(
     (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
   );
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+  // Nav pill active state
+  const navLinks = document.querySelectorAll('.nav a');
+  const pill = document.getElementById('nav-pill');
+  const sections = ['projects', 'experience', 'skills', 'education'];
+
+  function movePillTo(link) {
+    if (!link) { pill.style.opacity = '0'; return; }
+    const navInner = document.querySelector('.nav-inner');
+    const innerRect = navInner.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    pill.style.opacity = '1';
+    pill.style.left = (linkRect.left - innerRect.left) + 'px';
+    pill.style.width = linkRect.width + 'px';
+  }
+
+  function setActive(id) {
+    navLinks.forEach(a => a.classList.remove('active'));
+    const active = document.querySelector(`.nav a[href="#${id}"]`);
+    if (active) { active.classList.add('active'); movePillTo(active); }
+    else { pill.style.opacity = '0'; }
+  }
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
+
+  navLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      a.classList.add('active');
+      movePillTo(a);
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.nav a.active');
+    movePillTo(active || null);
+  });
 </script>
 
 </body>
